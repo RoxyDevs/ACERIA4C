@@ -12,18 +12,21 @@ El sistema de automatización utiliza LoRaWAN para la recolección de datos en t
 ---
 
 ## Project Structure / Estructura del Proyecto
-ROOT ├── BACKEND/ │ 
-├── app.py # Main Flask application / Aplicación Flask principal │ 
-├── lorawan.py # LoRaWAN data simulation and management / Simulación y gestión de datos LoRaWAN │ 
-├── models.py # Database models / Modelos de base de datos │ 
-└── config.py # Configuration file for environments / Archivo de configuración para entornos 
-├── FRONTEND/ │ 
-├── static/ │ 
-│ └── scripts.js # Frontend JavaScript for data fetching and visualization / JavaScript del frontend para obtención y visualización de datos │ 
-└── templates/ │ 
-└── index.html # Main HTML template for the frontend / Plantilla HTML principal para el frontend 
-└── README.md # Project documentation / Documentación del proyecto
 
+```
+ROOT
+├── BACKEND/
+│   ├── app.py           # Main Flask application / Aplicación Flask principal
+│   ├── lorawan.py       # LoRaWAN data simulation and management / Simulación y gestión de datos LoRaWAN
+│   ├── models.py        # Database models / Modelos de base de datos
+│   └── config.py        # Configuration file for environments / Archivo de configuración para entornos
+├── FRONTEND/
+│   ├── static/
+│   │   └── scripts.js   # Frontend JavaScript for data fetching and visualization / JavaScript del frontend para obtención y visualización de datos
+│   └── templates/
+│       └── index.html   # Main HTML template for the frontend / Plantilla HTML principal para el frontend
+└── README.md            # Project documentation / Documentación del proyecto
+```
 
 ---
 
@@ -60,74 +63,109 @@ ROOT ├── BACKEND/ │
    ```bash
    git clone https://github.com/RoxyDevs/ACERIA4C.git
    cd ACERIA4C
+   ```
 
-python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+2. Set up a virtual environment / Configurar un entorno virtual:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   ```
 
-pip install -r requirements.txt
+3. Install dependencies / Instalar dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-python BACKEND/app.py
+4. Initialize the database / Inicializar la base de datos:
+   ```bash
+   python -c "from BACKEND.app import db; db.create_all()"
+   ```
 
-http://127.0.0.1:5000/
+5. Run the application / Ejecutar la aplicación:
+   ```bash
+   python BACKEND/app.py
+   ```
 
-Usage / Uso
-Backend Endpoints / Endpoints del backend
-GET /api/realtime: Fetch the latest 10 records. / Obtiene los últimos 10 registros.
-GET /api/historical: Query historical data by date range (requires start_date and end_date as query parameters). / Consulta datos históricos por rango de fechas (requiere start_date y end_date como parámetros de consulta).
-POST /api/air_volume: Calculate air volume over a date range (requires start_date and end_date in JSON body). / Calcula el volumen de aire en un rango de fechas (requiere start_date y end_date en el cuerpo JSON).
-Frontend
+6. Open the application in your browser / Abrir la aplicación en tu navegador:
+   ```
+   http://127.0.0.1:5000/
+   ```
+
+---
+
+## Usage / Uso
+
+### Backend Endpoints / Endpoints del backend
+- `GET /api/realtime`: Fetch the latest 10 records. / Obtiene los últimos 10 registros.
+- `GET /api/historical`: Query historical data by date range (requires `start_date` and `end_date` as query parameters). / Consulta datos históricos por rango de fechas (requiere `start_date` y `end_date` como parámetros de consulta).
+- `POST /api/air_volume`: Calculate air volume over a date range (requires `start_date` and `end_date` in JSON body). / Calcula el volumen de aire en un rango de fechas (requiere `start_date` y `end_date` en el cuerpo JSON).
+
+### Frontend
 The frontend is designed to interact with the backend API for real-time and historical data visualization.
 
 El frontend está diseñado para interactuar con la API del backend para la visualización de datos en tiempo real e históricos.
 
-Real-Time Data: Automatically fetches and displays the latest 10 records. / Datos en tiempo real: Obtiene y muestra automáticamente los últimos 10 registros.
-Historical Data: Users can input a date range to query and display older records. / Datos históricos: Los usuarios pueden ingresar un rango de fechas para consultar y mostrar registros antiguos.
-Key Files / Archivos clave
-BACKEND/app.py
+- **Real-Time Data:** Automatically fetches and displays the latest 10 records. / **Datos en tiempo real:** Obtiene y muestra automáticamente los últimos 10 registros.
+- **Historical Data:** Users can input a date range to query and display older records. / **Datos históricos:** Los usuarios pueden ingresar un rango de fechas para consultar y mostrar registros antiguos.
+
+---
+
+## Key Files / Archivos clave
+### `BACKEND/app.py`
 The main Flask application connects the frontend with the database and provides the RESTful API.
 
 La aplicación Flask principal conecta el frontend con la base de datos y proporciona la API RESTful.
 
-BACKEND/lorawan.py
+### `BACKEND/lorawan.py`
 Simulates LoRaWAN data reception. Replace the placeholder logic with actual LoRaWAN integration for deployment.
 
 Simula la recepción de datos LoRaWAN. Reemplaza la lógica simulada con la integración real de LoRaWAN para el despliegue.
 
-BACKEND/models.py
+### `BACKEND/models.py`
 Defines the database schema for storing flow data.
 
 Define el esquema de la base de datos para almacenar datos de flujo.
 
-BACKEND/config.py
+### `BACKEND/config.py`
 Centralizes environment-specific configurations (development, testing, production).
 
 Centraliza las configuraciones específicas del entorno (desarrollo, pruebas, producción).
 
-Future Enhancements / Mejoras Futuras
-Deploy on Production Server: Migrate to a production environment with WSGI server (e.g., Gunicorn).
-Despliegue en servidor de producción: Migrar a un entorno de producción con un servidor WSGI (por ejemplo, Gunicorn).
-LoRaWAN Integration: Replace the simulated data with real LoRaWAN hardware.
-Integración LoRaWAN: Reemplazar los datos simulados con hardware LoRaWAN real.
-Enhanced Analytics: Add advanced analytics and reporting features.
-Análisis avanzado: Agregar funciones de análisis avanzado y generación de reportes.
-User Authentication: Secure the application with user authentication and role-based access control.
-Autenticación de usuarios: Proteger la aplicación con autenticación de usuarios y control de acceso basado en roles.
-Contributing / Contribuciones
+---
+
+## Future Enhancements / Mejoras Futuras
+- **Deploy on Production Server:** Migrate to a production environment with WSGI server (e.g., Gunicorn).
+- **Despliegue en servidor de producción:** Migrar a un entorno de producción con un servidor WSGI (por ejemplo, Gunicorn).
+- **LoRaWAN Integration:** Replace the simulated data with real LoRaWAN hardware.
+- **Integración LoRaWAN:** Reemplazar los datos simulados con hardware LoRaWAN real.
+- **Enhanced Analytics:** Add advanced analytics and reporting features.
+- **Análisis avanzado:** Agregar funciones de análisis avanzado y generación de reportes.
+- **User Authentication:** Secure the application with user authentication and role-based access control.
+- **Autenticación de usuarios:** Proteger la aplicación con autenticación de usuarios y control de acceso basado en roles.
+
+---
+
+## Contributing / Contribuciones
 Contributions are welcome! Please follow these steps:
 
 ¡Las contribuciones son bienvenidas! Por favor sigue estos pasos:
 
-Fork the repository. / Haz un fork del repositorio.
-Create a new branch (feature-name). / Crea una nueva rama (feature-name).
-Commit your changes. / Haz commit de tus cambios.
-Push to the forked repository. / Haz push al repositorio forkeado.
-Open a pull request. / Abre un pull request.
-License / Licencia
-This project is licensed under the MIT License. See the LICENSE file for details.
+1. Fork the repository. / Haz un fork del repositorio.
+2. Create a new branch (`feature-name`). / Crea una nueva rama (`feature-name`).
+3. Commit your changes. / Haz commit de tus cambios.
+4. Push to the forked repository. / Haz push al repositorio forkeado.
+5. Open a pull request. / Abre un pull request.
 
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+---
 
-Contact / Contacto
-For inquiries or support, contact RoxyDevs.
+## License / Licencia
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-Para consultas o soporte, contacta a RoxyDevs.
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+---
+
+## Contact / Contacto
+For inquiries or support, contact [RoxyDevs](https://github.com/RoxyDevs).
+
+Para consultas o soporte, contacta a [RoxyDevs](https://github.com/RoxyDevs).
