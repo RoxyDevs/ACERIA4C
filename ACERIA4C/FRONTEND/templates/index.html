@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerìa Digital</title>
+    <link rel="stylesheet" href=""/static/style.css
+</head>
+<body>
+    <h1>Acería Digital - Visualización de Datos</h1>
+    <section id=""realtime">
+    <h2> Datos en Tiempo Real</h2>
+    <table id="realtime-table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Flow Rate</th>
+            </tr>
+        </thead>
+        <tbody id="realtime-data">
+            <!-- Los datos en tiempo real se insertarán aquí mediante JavaScript -->
+        </tbody>
+    </table>
+</section>
+
+<section id="historical">
+    <h2>Consulta Histórica</h2>
+    <form id="historical-form">
+        <label for="start_date">Fecha Inicio:</label>
+        <input type="date" id="start_date" name="start_date">
+        <label for="end_date">Fecha Fin:</label>
+        <input type="date" id="end_date" name="end_date">
+        <button type="submit">Consultar</button>
+    </form>
+    <div id="historical-results"></div>
+    </section>
+    <script src="/static/scripts.js"></script>
+</body>
+</html>
